@@ -368,6 +368,7 @@ public abstract class ServiceRequestBase<T> {
     T serviceResponse;
 
     if (!response.getResponseContentType().startsWith("text/xml")) {
+      LOG.error("RESPONSE IS NOT A XML! Type: " + response.getResponseContentType());
       throw new ServiceRequestException("The response received from the service didn't contain valid XML.");
     }
 
@@ -379,6 +380,7 @@ public abstract class ServiceRequestBase<T> {
 
     try {
       this.getService().processHttpResponseHeaders(TraceFlags.EwsResponseHttpHeaders, response);
+
 
       if (this.getService().isTraceEnabledFor(TraceFlags.EwsResponse)) {
         ByteArrayOutputStream memoryStream = new ByteArrayOutputStream();
